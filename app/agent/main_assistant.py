@@ -16,6 +16,7 @@ import os, asyncio
 from app.agent.home_automation_agent import home_agent
 from app.agent.os_controlling_agent import os_agent
 from app.agent.communication_agent import communication_agent
+from app.agent.mode_selector_agent import mode_selector_agent
 from app.backend.logger import log
 
 
@@ -111,6 +112,24 @@ async def communication_agent_delegate(user_query: str) -> str:
         #     log(f"[DEBUG] AI requested tools: {msg.additional_kwargs['tool_calls']}")
         if msg.type == "tool":
             log(f"Communication Agent Tool Result: {msg.content}")
+
+    return result["messages"][-1].content
+
+@tool
+async def mode_selector_delegate(user_query: str) -> str:
+    """
+    Delegate smart home mode selection requests to the Mode Selector Agent.
+    The Mode Selector agent is responsible for setting the current mode of the smart home, which influences the behavior of other agents and devices in the home.
+    Such as start working mode, activate party mode etc.
+    """
+    state = {"messages": [HumanMessage(content=user_query)]}
+    result = await mode_selector_agent.ainvoke(state)
+    
+    for msg in result["messages"]:
+        # if msg.type == "ai" and "tool_calls" in msg.additional_kwargs:
+        #     log(f"[DEBUG] AI requested tools: {msg.additional_kwargs['tool_calls']}")
+        if msg.type == "tool":
+            log(f"Mode Selector Agent Tool Result: {msg.content}")
 
     return result["messages"][-1].content
 
@@ -214,7 +233,7 @@ class MainAgentManager:
         self.graph = StateGraph(ChatState)
         self.brain_agent = create_react_agent(
             self.llm,
-            tools=[search, calculator, home_agent_delegate, os_agent_delegate, communication_agent_delegate],
+            tools=[search, calculator, home_agent_delegate, os_agent_delegate, communication_agent_delegate, mode_selector_delegate],
             prompt=SystemMessage(content=brain_agent_instruction),
         )
 

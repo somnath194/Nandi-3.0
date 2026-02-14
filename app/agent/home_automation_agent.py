@@ -64,19 +64,19 @@ async def set_led_segment(segment_name: str, rgb_colour_code: list[int], brightn
     return await led_controller.set_led_segment(segment_name, rgb_colour_code, brightness_value)
 
 
-@tool
-async def set_segment_mode(strip_mode: str) -> Dict[str, Any]:
-    """
-    Use this tool to apply a predefined mode/effect to the LED strip.
+# @tool
+# async def set_segment_mode(strip_mode: str) -> Dict[str, Any]:
+#     """
+#     Use this tool to apply a predefined mode/effect to the LED strip.
     
-    strip_mode must be one of:
-    - "musicSync"  → reactive lighting effect with music
-    - "workMode"   → steady bright lighting
-    - "shootingMode" → dim balanced lighting for video shooting
+#     strip_mode must be one of:
+#     - "musicSync"  → reactive lighting effect with music
+#     - "workMode"   → steady bright lighting
+#     - "shootingMode" → dim balanced lighting for video shooting
     
-    Example: set_segment_mode(strip_mode="musicSync")
-    """
-    return await led_controller.set_segment_mode(strip_mode)
+#     Example: set_segment_mode(strip_mode="musicSync")
+#     """
+#     return await led_controller.set_segment_mode(strip_mode)
 
 
 home_agent_instruction = (
@@ -94,6 +94,6 @@ home_agent_instruction = (
 
 home_agent = create_react_agent(
     llm,
-    tools=[appliance_control, set_led_segment, set_segment_mode],
+    tools=[appliance_control, set_led_segment],
     prompt=SystemMessage(content=home_agent_instruction)
 )

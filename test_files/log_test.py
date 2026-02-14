@@ -1,8 +1,8 @@
 import asyncio
 import websockets
 
-# LOG_SERVER_URL = "ws://api.shuun.site/ws/logs"  # Change if deployed remotely
-LOG_SERVER_URL = "ws://127.0.0.1:8001/ws/logs"  # Change if deployed remotely
+LOG_SERVER_URL = "ws://api.shuun.site/ws/logs"  # Change if deployed remotely
+# LOG_SERVER_URL = "ws://127.0.0.1:8001/ws/logs"  # Change if deployed remotely
 
 
 async def listen_logs():

@@ -153,4 +153,4 @@ class AndroidController:
 
 if __name__ == "__main__":
     ac = AndroidController()
-    log(asyncio.run(ac.execute('phone','AdjustSettings',{'adjustmentType':'set','valueType':'volume','value':'0%'})))
+    log(asyncio.run(ac.execute('phone','SearchControl',{'searchContent':'cricket news','searchPlatform':'google'})))

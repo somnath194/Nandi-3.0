@@ -49,7 +49,8 @@ async def receiver(ws):
         print(f"🔌 Connection closed: {e}")
 
 async def main():
-    uri = "ws://127.0.0.1:8001/ws/chat"  # Change if your server runs elsewhere
+    # uri = "ws://api.shuun.site/ws/chat"
+    uri = "ws://localhost:8001/ws/chat"          # Change if your server runs elsewhere
     async with websockets.connect(uri) as ws:
         print("🤖 Connected to chatbot (queries come from queries.txt)\n")
 

@@ -136,8 +136,7 @@ class LEDStripController:
                 "status": None,
                 "error": f"Cannot connect to {device_name} LED strip light ({ip}): {str(e)}"
             }
-
-
+               
     def _normalize_rgb(self, rgb) -> (List[int], List[str]): # type: ignore
         """Return normalized rgb list [r,g,b] and warnings list (if any)."""
         warnings: List[str] = []
